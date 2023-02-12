@@ -11,8 +11,7 @@ pub enum Platform {
     Ios,
     Windows,
     Unix,
-    MacIntel,
-    MacApple,
+    MacOs(String),
     Wasm,
 }
 
@@ -40,9 +39,9 @@ pub fn platform() -> Platform {
     } else if cfg!(target_os = "ios") {
         Platform::Ios
     } else if cfg!(all(target_os = "macos", target_arch = "aarch64")) {
-        Platform::MacApple
+        Platform::MacOs("Apple".to_string())
     } else if cfg!(target_os = "macos") {
-        Platform::MacIntel
+        Platform::MacOs("Intel".to_string())
     } else if cfg!(target_family = "wasm") {
         Platform::Wasm
     } else if cfg!(unix) {
